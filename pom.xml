@@ -9,11 +9,24 @@
     <version>1.0.0</version>
 
     <dependencies>
+        <!--日志-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.31</version>
+        </dependency>
 <!--        java调用远程shell-->
         <dependency>
             <groupId>org.jvnet.hudson</groupId>
             <artifactId>ganymed-ssh2</artifactId>
             <version>build210-hudson-1</version>
+        </dependency>
+        <!--junit测试-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
