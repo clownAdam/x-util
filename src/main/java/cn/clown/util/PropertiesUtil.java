@@ -14,8 +14,8 @@ import java.util.Properties;
 public class PropertiesUtil {
     /**
      * 将properties文件加载到Properties对象中
-     * @param propertiesPath
-     * @return
+     * @param propertiesPath 路径
+     * @return 装载完成的properties
      */
     public static Properties read(String propertiesPath){
         Properties prop = new Properties();
