@@ -80,6 +80,22 @@
             <version>5.1.47</version>
             <scope>test</scope>
         </dependency>
+        <!--hdfs,hadoop相关依赖-->
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-hdfs</artifactId>
+            <version>3.0.0-cdh6.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-common</artifactId>
+            <version>3.0.0-cdh6.3.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-client</artifactId>
+            <version>3.0.0-cdh6.3.2</version>
+        </dependency>
     </dependencies>
     <!--
         发布到maven中央仓库会要求我们在上传jar到同时，
@@ -172,4 +188,13 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <!--下载cloudera镜像-->
+        <repository>
+            <id>cloudera</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos</url>
+
+        </repository>
+    </repositories>
 </project>
