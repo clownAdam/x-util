@@ -23,17 +23,18 @@ public class ShellUtil {
 
     /**
      * 获取连接
-     * @param ip ip
-     * @param port port
-     * @param user user
+     *
+     * @param ip       ip
+     * @param port     port
+     * @param user     user
      * @param password password
      */
     public static void getConnection(String ip, int port, String user, String password) {
         connection = new Connection(ip, port);
         try {
             connection.connect();
-            boolean conn_status = connection.authenticateWithPassword(user, password);
-            if (conn_status) {
+            boolean connStatus = connection.authenticateWithPassword(user, password);
+            if (connStatus) {
                 logger.info("连接成功[ip:{},port:{},user:{},password:{}].", ip, port, user, password);
             }
         } catch (IOException e) {
@@ -43,8 +44,9 @@ public class ShellUtil {
 
     /**
      * 获取连接
-     * @param ip ip
-     * @param user user
+     *
+     * @param ip       ip
+     * @param user     user
      * @param password password
      */
     public static void getConnection(String ip, String user, String password) {
@@ -64,6 +66,12 @@ public class ShellUtil {
         } catch (IOException e) {
             logger.error("code:201,session shell连接失败{}.", e.getMessage());
             return 201;
+        } catch (NullPointerException e1) {
+            if (connection == null) {
+                logger.error("code:204,NullPointerException:connection is null");
+            }
+            logger.error(e1.getMessage(), e1);
+            return 204;
         }
         try {
             logger.info("执行shell:[{}]......", command);
@@ -71,6 +79,12 @@ public class ShellUtil {
         } catch (IOException e) {
             logger.error("code:202,command:[{}]执行失败{}", command, e.getMessage());
             return 202;
+        }catch (NullPointerException e1){
+            if (session == null) {
+                logger.error("code:204,NullPointerException:session is null");
+            }
+            logger.error(e1.getMessage(), e1);
+            return 204;
         }
         try {
             String stdout = processStream(session.getStdout());
@@ -78,8 +92,8 @@ public class ShellUtil {
             logger.info("shell command:[{}] stdout:{}", command, "".equals(stdout) ? "{}" : "\n" + stdout);
             logger.info("shell command:[{}] stderr:{}", command, "".equals(stderr) ? "{}" : "\n" + stderr);
         } catch (IOException e) {
-            logger.error("读取shell command:[{}]Stdout信息失败.{}", command, e.getMessage());
-            logger.error("读取shell command:[{}]Stderr信息失败.{}", command, e.getMessage());
+            logger.error("code:203,IOException:读取shell command:[{}]Stdout信息失败.{}", command, e.getMessage());
+            logger.error("code:203,IOException:读取shell command:[{}]Stderr信息失败.{}", command, e.getMessage());
             return 203;
         }
         session.close();
